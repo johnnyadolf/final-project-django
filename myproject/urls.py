@@ -17,8 +17,21 @@ from django.contrib import admin
 from django.urls import include, path
 from django.conf.urls.static import static
 from django.conf import settings
+from django.views.generic import RedirectView
 
 urlpatterns = [
+    # Root URL redirects to course list
+    path('', RedirectView.as_view(url='/onlinecourse/', permanent=True)),
+    
+    # Admin panel
     path('admin/', admin.site.urls),
+    
+    # Main application
     path('onlinecourse/', include('onlinecourse.urls')),
+    
+    # Alternative shorter URLs for common actions
+    path('courses/', RedirectView.as_view(url='/onlinecourse/', permanent=True)),
+    path('register/', RedirectView.as_view(url='/onlinecourse/registration/', permanent=True)),
+    path('login/', RedirectView.as_view(url='/onlinecourse/login/', permanent=True)),
+    path('logout/', RedirectView.as_view(url='/onlinecourse/logout/', permanent=True)),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
