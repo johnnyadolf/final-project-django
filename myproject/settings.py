@@ -30,7 +30,8 @@ DEBUG = os.environ.get('DEBUG', 'False').lower() == 'true'
 # <HINT> add your cloud host here
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1,django-final-project-app.azurewebsites.net').split(',')
 
-CSRF_TRUSTED_ORIGINS = ['https://*.cognitiveclass.ai']
+CSRF_TRUSTED_ORIGINS = ['https://django-final-project-app.azurewebsites.net',
+    'https://*.azurewebsites.net']
 
 # Application definition
 INSTALLED_APPS = [
