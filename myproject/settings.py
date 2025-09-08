@@ -28,7 +28,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'aay0j_9b&ky3a7(8m8il+-1ud(scw12@w5!+5
 DEBUG = os.environ.get('DEBUG', 'False').lower() == 'true'
 
 # <HINT> add your cloud host here
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1,django-final-project-app.azurewebsites.net').split(',')
 
 CSRF_TRUSTED_ORIGINS = ['https://*.cognitiveclass.ai']
 
