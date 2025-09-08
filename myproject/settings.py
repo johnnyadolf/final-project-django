@@ -37,10 +37,16 @@ CSRF_TRUSTED_ORIGINS = [
 ]
 
 # Additional CSRF settings for Azure
-CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = not DEBUG  # Only secure in production
 CSRF_COOKIE_HTTPONLY = False
 CSRF_COOKIE_SAMESITE = 'Lax'
 CSRF_USE_SESSIONS = False
+
+# Session settings for Azure
+SESSION_COOKIE_SECURE = not DEBUG
+SESSION_COOKIE_SAMESITE = 'Lax'
+SECURE_SSL_REDIRECT = not DEBUG
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Temporarily disable CSRF for debugging (remove this in production)
 # CSRF_EXEMPT = True
@@ -98,6 +104,10 @@ DATABASES = {
         'NAME': os.path.join(os.environ.get('DB_DIR', BASE_DIR), 'db.sqlite3'),
     }
 }
+
+# For Azure App Service, use a writable directory for SQLite
+if 'WEBSITE_SITE_NAME' in os.environ:  # Azure App Service detection
+    DATABASES['default']['NAME'] = '/tmp/db.sqlite3'
 
 
 # Password validation

@@ -124,3 +124,6 @@ class Choice(models.Model):
 class Submission(models.Model):
     enrollment = models.ForeignKey(Enrollment, on_delete=models.CASCADE)
     choices = models.ManyToManyField(Choice)
+    
+    def __str__(self):
+        return f"Submission for {self.enrollment.user.username} - {self.enrollment.course.name}"
