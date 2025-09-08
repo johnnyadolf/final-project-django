@@ -30,8 +30,20 @@ DEBUG = os.environ.get('DEBUG', 'False').lower() == 'true'
 # <HINT> add your cloud host here
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1,django-final-project-app.azurewebsites.net').split(',')
 
-CSRF_TRUSTED_ORIGINS = ['https://django-final-project-app.azurewebsites.net',
-    'https://*.azurewebsites.net']
+CSRF_TRUSTED_ORIGINS = [
+    'https://django-final-project-app.azurewebsites.net',
+    'https://*.azurewebsites.net',
+    'https://*.cognitiveclass.ai'
+]
+
+# Additional CSRF settings for Azure
+CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_HTTPONLY = False
+CSRF_COOKIE_SAMESITE = 'Lax'
+CSRF_USE_SESSIONS = False
+
+# Temporarily disable CSRF for debugging (remove this in production)
+# CSRF_EXEMPT = True
 
 # Application definition
 INSTALLED_APPS = [
