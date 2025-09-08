@@ -8,3 +8,4 @@ aiohttp==3.8.3
 click==8.0.4
 wheel==0.41.1
 multidict==4.5
+whitenoise==6.5.0
