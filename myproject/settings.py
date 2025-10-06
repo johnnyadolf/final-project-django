@@ -239,11 +239,3 @@ else:
     SECURE_SSL_REDIRECT = False
     SESSION_COOKIE_SECURE = False
     CSRF_COOKIE_SECURE = False
-
-# Database Connection Pooling (production optimization)
-if DATABASE_URL:
-    DATABASES['default']['CONN_MAX_AGE'] = 600
-    DATABASES['default']['OPTIONS'] = {
-        'connect_timeout': 10,
-    }
-
