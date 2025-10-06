@@ -1,235 +1,118 @@
-# Django Online Course Platform
+# Django Final Project
 
-A Django-based online course platform with assessment features, deployed on Microsoft Azure.
+This Django application provides a course management system with user authentication and course enrollment features. It is deployed on Render and uses Supabase as the database provider.
 
-## 🌐 Live Demo
+## 🚀 Live Demo
 
-**Application URL**: [https://django-final-project-app.azurewebsites.net/onlinecourse/](https://django-final-project-app.azurewebsites.net/onlinecourse/)
+[Visit the live application](https://django-johnnyadolf.onrender.com/)
 
-**Admin Panel**: [https://django-final-project-app.azurewebsites.net/admin/](https://django-final-project-app.azurewebsites.net/admin/)
+## 🛠 Tech Stack
 
-## 📋 Project Overview
+- Django 4.x
+- Python 3.x
+- Supabase (PostgreSQL)
+- Bootstrap 5
+- Render (Hosting)
 
-This is a Django web application for managing online courses with integrated assessment functionality. The platform allows users to:
+## 📋 Prerequisites
 
-- Browse and enroll in courses
-- Take assessments and quizzes
-- View course materials and content
-- Track progress and results
-- Administrative management through Django admin
+- Python 3.x
+- pip
+- virtualenv (recommended)
+- Supabase account
+- Render account
 
-## 🛠️ Technology Stack
+## ⚙️ Local Development Setup
 
-- **Backend**: Django 4.2.3
-- **Runtime**: Python 3.9
-- **Database**: SQLite3 (development) / Azure-compatible for production
-- **Static Files**: WhiteNoise middleware
-- **Web Server**: Gunicorn
-- **Cloud Platform**: Microsoft Azure App Service
-- **Version Control**: Git/GitHub
+1. Clone the repository:
 
-## 🏗️ Architecture
-
-### Project Structure
-```
-final-project-django/
-├── myproject/                 # Django project settings
-│   ├── settings.py           # Main configuration file
-│   ├── urls.py              # URL routing
-│   └── wsgi.py              # WSGI application
-├── onlinecourse/             # Main application
-│   ├── models.py            # Database models
-│   ├── views.py             # View logic
-│   ├── urls.py              # App-specific URLs
-│   └── templates/           # HTML templates
-├── static/                   # Static files (CSS, JS, images)
-├── requirements.txt          # Python dependencies
-├── runtime.txt              # Python version specification
-├── startup.sh               # Azure deployment script
-├── Procfile                 # Process configuration
-└── manage.py                # Django management script
-```
-
-## 🚀 Deployment on Azure
-
-This application is deployed on **Microsoft Azure App Service** using the **FREE tier**.
-
-### Azure Resources
-- **Resource Group**: `django-final-project-rg`
-- **Location**: West Europe (optimal for Switzerland)
-- **App Service Plan**: `django-final-plan` (F1 Free tier)
-- **Web App**: `django-final-project-app`
-- **Runtime Stack**: Python 3.9 on Linux
-
-### Deployment Configuration
-
-#### Production Settings
-- **DEBUG**: Disabled in production
-- **ALLOWED_HOSTS**: Configured for Azure domain
-- **Static Files**: Managed by WhiteNoise middleware
-- **Security**: Environment variables for sensitive data
-
-#### Environment Variables
 ```bash
-DEBUG=False
-ALLOWED_HOSTS=django-final-project-app.azurewebsites.net,localhost,127.0.0.1
-SCM_DO_BUILD_DURING_DEPLOYMENT=true
+git clone <repository-url>
+cd final-project-django
 ```
 
-## 💻 Local Development
+2. Create and activate virtual environment:
 
-### Prerequisites
-- Python 3.9 or higher
-- pip (Python package manager)
-- Git
+```bash
+python -m venv venv
+source venv/bin/activate  # On macOS
+```
 
-### Setup Instructions
+3. Install dependencies:
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/johnnyadolf/final-project-django.git
-   cd final-project-django
-   ```
+```bash
+pip install -r requirements.txt
+```
 
-2. **Create virtual environment**
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
-   ```
+4. Set up environment variables:
 
-3. **Install dependencies**
-   ```bash
-   pip install -r requirements.txt
-   ```
+```bash
+cp .env.example .env
+```
 
-4. **Run migrations**
-   ```bash
-   python manage.py migrate
-   ```
+Edit `.env` with your Supabase credentials:
 
-5. **Create superuser (optional)**
-   ```bash
-   python manage.py createsuperuser
-   ```
+```
+DATABASE_URL=your_supabase_connection_string
+SECRET_KEY=your_django_secret_key
+DEBUG=True
+```
 
-6. **Collect static files**
-   ```bash
-   python manage.py collectstatic --noinput
-   ```
+5. Run migrations:
 
-7. **Start development server**
-   ```bash
-   python manage.py runserver
-   ```
+```bash
+python manage.py migrate
+```
 
-8. **Access the application**
-   - Main app: http://localhost:8000/onlinecourse/
-   - Admin panel: http://localhost:8000/admin/
+6. Start development server:
 
-## 📦 Dependencies
+```bash
+python manage.py runserver
+```
 
-### Core Dependencies
-- `Django==4.2.3` - Web framework
-- `Pillow==10.0.0` - Image processing
-- `gunicorn==20.1.0` - WSGI HTTP Server
-- `whitenoise==6.5.0` - Static file serving
-- `jinja2==3.0` - Template engine
+## 🚀 Deployment on Render
 
-### Development Dependencies
-- `wheel==0.41.1` - Package building
-- `click==8.0.4` - Command line interface
+1. Create a new Web Service on Render
+2. Connect your GitHub repository
+3. Configure the following:
+   - Build Command: `pip install -r requirements.txt`
+   - Start Command: `gunicorn myproject.wsgi:application`
+   - Environment Variables:
+     - `DATABASE_URL` (from Supabase)
+     - `SECRET_KEY`
+     - `DEBUG=False`
+     - `ALLOWED_HOSTS`
 
-See `requirements.txt` for complete list.
+## 📁 Media Files
 
-## 🗄️ Database Schema
+Media files (course images) are stored in the `media/` directory. For production, configure Render's persistent disk:
 
-### ER Diagram
-For reference, here's the ER diagram design for the assessment feature:
+1. Add a persistent disk in Render dashboard
+2. Mount it to `/media` path
+3. Update your environment variables:
 
-![Onlinecourse ER Diagram](https://github.com/ibm-developer-skills-network/final-cloud-app-with-database/blob/master/static/media/course_images/onlinecourse_app_er.png)
+```
+MEDIA_URL=/media/
+MEDIA_ROOT=/media
+```
 
-### Key Models
-- **Course**: Course information and metadata
-- **Lesson**: Individual lessons within courses
-- **Question**: Assessment questions
-- **Choice**: Multiple choice options
-- **Submission**: User assessment submissions
-- **User**: Django's built-in user model for authentication
+## 🔐 Database Management
 
-## 🔧 Configuration
+This project uses Supabase PostgreSQL database:
 
-### Settings Overview
-The application uses environment-based configuration:
+1. Create a new project in Supabase
+2. Get the connection string from Database Settings
+3. Update `DATABASE_URL` in your environment variables
+4. Run migrations on deployment
 
-- **Development**: Uses local SQLite database, DEBUG=True
-- **Production**: Uses environment variables, DEBUG=False, WhiteNoise for static files
-
-### Key Configuration Files
-- `myproject/settings.py` - Main Django settings
-- `requirements.txt` - Python package dependencies
-- `runtime.txt` - Python version specification
-- `startup.sh` - Azure deployment automation script
-- `Procfile` - Process type declarations
-
-## 🌟 Features
-
-### For Students
-- Course browsing and enrollment
-- Interactive lessons and content
-- Assessment taking with immediate feedback
-- Progress tracking
-- User authentication and profiles
-
-### For Administrators
-- Course content management
-- User management
-- Assessment creation and management
-- Analytics and reporting (via Django admin)
-
-## 🔒 Security Features
-
-- Environment-based secret key management
-- CSRF protection enabled
-- Secure cookie configuration
-- XSS protection headers
-- SQL injection prevention through Django ORM
-
-## 📱 Responsive Design
-
-The application is designed to work across different devices:
-- Desktop computers
-- Tablets
-- Mobile phones
-
-## 🤝 Contributing
+## 📝 Contributing
 
 1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/new-feature`)
-3. Commit your changes (`git commit -am 'Add new feature'`)
-4. Push to the branch (`git push origin feature/new-feature`)
-5. Create a Pull Request
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-## 📝 License
+## 📄 License
 
-This project is licensed under the terms specified in the `LICENSE` file.
-
-## 🆘 Support
-
-For questions or issues:
-1. Check the existing GitHub issues
-2. Create a new issue with detailed description
-3. Include steps to reproduce any bugs
-
-## 📊 Deployment Status
-
-- ✅ **Production**: Deployed on Azure App Service
-- ✅ **Status**: Running
-- ✅ **Health Check**: Operational
-- ✅ **SSL**: Enabled (Azure managed)
-- ✅ **Domain**: django-final-project-app.azurewebsites.net
-
----
-
-**Last Updated**: September 2025  
-**Deployed on**: Microsoft Azure App Service (Free Tier)  
-**Repository**: https://github.com/johnnyadolf/final-project-django
+This project is licensed under the MIT License - see the LICENSE file for details.
