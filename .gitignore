@@ -60,6 +60,31 @@ coverage.xml
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
+logs/
+staticfiles/
+media/
+
+# Documentation (keep only README.md)
+AZURE_DEPLOYMENT.md
+AZURE_QUICKSTART.md
+CHANGES_SUMMARY.md
+PRODUCTION_DEPLOYMENT.md
+QUICKSTART.md
+START_HERE.md
+TESTING.md
+TEST_QUICK_START.md
+TEST_RESULTS.md
+DEPLOYMENT.md
+deployment_info.txt
+
+# Testing
+htmlcov/
+.coverage
+.coverage.*
+coverage.xml
+*.cover
+.pytest_cache/
+.tox/
 
 # Flask stuff:
 instance/
@@ -103,6 +128,8 @@ celerybeat.pid
 
 # Environments
 .env
+.env.local
+.env.production
 .venv
 env/
 venv/

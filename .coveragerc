@@ -1,0 +1,28 @@
+[run]
+source = .
+omit =
+    */migrations/*
+    */tests.py
+    */test_*.py
+    */__pycache__/*
+    */venv/*
+    */env/*
+    manage.py
+    */wsgi.py
+    */asgi.py
+    */apps.py
+    */admin.py
+    setup.py
+    */settings.py
+    
+[report]
+precision = 2
+show_missing = True
+skip_covered = False
+
+[html]
+directory = htmlcov
+title = Django Online Course - Test Coverage Report
+
+[xml]
+output = coverage.xml

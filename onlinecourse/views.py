@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
+from django.db import connection
 # <HINT> Import any new Models here
 from .models import Course, Enrollment, Question, Choice, Submission
 from django.contrib.auth.models import User
@@ -11,6 +12,27 @@ import logging
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
 # Create your views here.
+
+
+def health_check(request):
+    """
+    Health check endpoint for monitoring application status.
+    Returns JSON response with database connectivity status.
+    """
+    health_status = {
+        'status': 'healthy',
+        'database': 'disconnected'
+    }
+    
+    try:
+        # Check database connection
+        connection.ensure_connection()
+        health_status['database'] = 'connected'
+        return JsonResponse(health_status, status=200)
+    except Exception as e:
+        health_status['status'] = 'unhealthy'
+        health_status['error'] = str(e)
+        return JsonResponse(health_status, status=503)
 
 
 def registration_request(request):

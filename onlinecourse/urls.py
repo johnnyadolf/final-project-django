@@ -5,6 +5,9 @@ from . import views
 
 app_name = 'onlinecourse'
 urlpatterns = [
+    # Health check endpoint
+    path('health/', views.health_check, name='health_check'),
+    
     # route is a string contains a URL pattern
     # view refers to the view function
     # name the URL
