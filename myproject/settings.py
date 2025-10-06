@@ -39,7 +39,7 @@ ALLOWED_HOSTS = [
 # CSRF Trusted Origins - can be extended via environment variable
 CSRF_TRUSTED_ORIGINS = config(
     'CSRF_TRUSTED_ORIGINS',
-    default='https://*.azurewebsites.net,https://*.cognitiveclass.ai,*.onrender.com',
+    default='https://*.azurewebsites.net,https://*.cognitiveclass.ai,https://*.onrender.com',
     cast=Csv()
 )
 
