@@ -31,7 +31,10 @@ SECRET_KEY = config('SECRET_KEY', default='aay0j_9b&ky3a7(8m8il+-1ud(scw12@w5!+5
 DEBUG = config('DEBUG', default=False, cast=bool)
 
 # Allowed hosts - supports both environment variables and .env file
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost,127.0.0.1', cast=Csv())
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    'django-johnnyadolf.onrender.com']
 
 # CSRF Trusted Origins - can be extended via environment variable
 CSRF_TRUSTED_ORIGINS = config(
