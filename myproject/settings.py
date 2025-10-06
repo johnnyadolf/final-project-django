@@ -166,9 +166,6 @@ STORAGES = {
     }
 }
 
-# WhiteNoise configuration
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
 # Logging Configuration
 LOGGING = {
     'version': 1,
