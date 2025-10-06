@@ -102,22 +102,10 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-# Use PostgreSQL in production (via DATABASE_URL), SQLite for local development
-DATABASE_URL = config('DATABASE_URL', default='')
-
-if DATABASE_URL:
-    # Production: Use PostgreSQL or other database via DATABASE_URL
-    DATABASES = {
-        'default': dj_database_url.parse(DATABASE_URL, conn_max_age=600)
-    }
-else:
-    # Development: Use SQLite
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        }
-    }
+# Use PostgreSQL in production
+DATABASES = {
+    'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
+}
 
 # For Azure App Service with SQLite (not recommended for production)
 if 'WEBSITE_SITE_NAME' in os.environ and not DATABASE_URL:
